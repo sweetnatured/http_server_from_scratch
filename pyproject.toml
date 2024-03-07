@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "http-from-scratch"
+version = "0.1.0"
+description = ""
+authors = ["salih <salih.beskardes@solactive.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

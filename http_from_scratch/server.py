@@ -1,6 +1,7 @@
 from socket import *
 
-def respond_header(status_code:int):
+
+def respond_header(status_code: int) -> str:
     header = ""
     if status_code == 200:
         header = f"HTTP/1.1 {status_code} \n"
@@ -16,8 +17,7 @@ def respond_header(status_code:int):
     return header
 
 
-def respond_data(html_file:str, header) -> str:
-
+def respond_data(html_file: str, header) -> str:
     data = header
 
     with open(html_file) as html:
@@ -27,14 +27,14 @@ def respond_data(html_file:str, header) -> str:
     return data
 
 
-def createServer():
-    serversocket = socket(AF_INET, SOCK_STREAM)
+def create_server():
+    server_socket = socket(AF_INET, SOCK_STREAM)
     try:
-        serversocket.bind(('localhost', 9412))
-        serversocket.listen(5)
+        server_socket.bind(('localhost', 9000))
+        server_socket.listen(5)
 
-        while (True):
-            (client_socket, adress) = serversocket.accept()
+        while True:
+            (client_socket, address) = server_socket.accept()
 
             coming_request = client_socket.recv(5000).decode()
             request_method = coming_request.split(' ')[0]
@@ -47,7 +47,7 @@ def createServer():
                 if file_requested == "/":
                     header = respond_header(200)
                     file_requested = "index.html"
-                    data = respond_data(file_requested , header)
+                    data = respond_data(file_requested, header)
                 else:
                     data = respond_header(404)
 
@@ -56,8 +56,8 @@ def createServer():
 
     except:
         print("Shutting Down the Server")
-        serversocket.close()
+        server_socket.close()
 
 
 print("Server is listening localhost:9000")
-createServer()
+create_server()

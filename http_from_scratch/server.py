@@ -21,8 +21,8 @@ def respond_header(status_code: int) -> str:
 def respond_data(html_file: str, header) -> str:
     data = header
 
-    pages_folder = Path().cwd().parent / f"pages/{html_file}"
-    with pages_folder.open() as html:
+    html_file = Path().cwd().parent / f"pages/{html_file}"
+    with html_file.open() as html:
         html_as_string = html.read()
         data += f"{html_as_string} \n\n"
 

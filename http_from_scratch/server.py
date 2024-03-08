@@ -1,3 +1,4 @@
+from pathlib import Path
 from socket import *
 
 
@@ -20,7 +21,8 @@ def respond_header(status_code: int) -> str:
 def respond_data(html_file: str, header) -> str:
     data = header
 
-    with open(html_file) as html:
+    pages_folder = Path().cwd().parent / f"pages/{html_file}"
+    with pages_folder.open() as html:
         html_as_string = html.read()
         data += f"{html_as_string} \n\n"
 
@@ -30,7 +32,7 @@ def respond_data(html_file: str, header) -> str:
 def create_server():
     server_socket = socket(AF_INET, SOCK_STREAM)
     try:
-        server_socket.bind(('localhost', 9000))
+        server_socket.bind(('localhost', 9101))
         server_socket.listen(5)
 
         while True:
